@@ -1,5 +1,15 @@
 from world_object import WorldObject
 
+TILE_MEANING = {
+        "priority": ["Water", "Tree", "Grass"],
+        "tiletypes" : {
+            "Empty" : ' ',
+            "Grass" : ',',
+            "Tree" : 'T',
+            "Water" : '~'
+        }
+    }
+
 class Tile:
     def __init__(self):
         self.objects = [] # This will be a list of the object instances.
@@ -25,4 +35,7 @@ class Tile:
         return False
     
     def show(self):
-        pass
+        for object_name in TILE_MEANING["priority"]:
+            if object_name in self.object_names:
+                return TILE_MEANING["tiletypes"][object_name]
+        return TILE_MEANING["tiletypes"]["Empty"]
