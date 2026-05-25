@@ -1,11 +1,7 @@
 from tile import Tile
 
 class Map:
-    TILE_MEANING = {
-        'Grass' : '`',
-        'Tree' : 'T',
-        'Water' : '~'
-    }
+    
     def __init__(self, width):
         self.width = width
         self.tiles = []
