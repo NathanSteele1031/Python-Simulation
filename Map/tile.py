@@ -1,4 +1,4 @@
-from world_object import WorldObject
+from Map.world_object import WorldObject
 
 TILE_MEANING = {
         "priority": ["Water", "Tree", "Grass"],

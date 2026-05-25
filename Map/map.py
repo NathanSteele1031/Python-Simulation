@@ -1,4 +1,4 @@
-from tile import Tile, WorldObject
+from Map.tile import Tile, WorldObject
 
 class Map:
     
