@@ -8,6 +8,7 @@ class PlantManager:
             plant_objects = PlantManager.get_plants(selected_tile)
             for selected_plant in plant_objects:
                 selected_plant.age_up()
+                selected_plant.grown()
     
     def get_plants(given_tile: Tile):
         tile_plants = []
