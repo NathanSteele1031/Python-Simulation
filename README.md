@@ -5,5 +5,5 @@ This will be a python project that will simulate a world.
 - Have a functional map in Main
 - DONE Plant System
     - Management system
-        - Steps and ages plants
+        - DONE Steps and ages plants
         - Simulates the spread of seeds.
