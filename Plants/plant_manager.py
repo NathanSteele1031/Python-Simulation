@@ -3,6 +3,7 @@ from Map.map import Map
 from Map.tile import Tile
 
 class PlantManager:
+    @staticmethod
     def update(given_map: Map):
         for selected_tile in given_map.tiles:
             plant_objects = PlantManager.get_plants(selected_tile)
@@ -10,6 +11,7 @@ class PlantManager:
                 selected_plant.age_up()
                 selected_plant.grown()
     
+    @staticmethod
     def get_plants(given_tile: Tile):
         tile_plants = []
         for tile_object in given_tile.objects:
