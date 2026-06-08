@@ -30,3 +30,6 @@ class Plant(WorldObject):
         """
         if self.seed and self.age == 5:
             self.seed = not self.seed
+        
+    def grown_seedling(self):
+        return self.age == 10
