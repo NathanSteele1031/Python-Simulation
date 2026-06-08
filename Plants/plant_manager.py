@@ -27,3 +27,7 @@ class PlantManager:
             if isinstance(tile_object, Plant):
                 tile_plants.append(tile_object)
         return tile_plants
+    
+    @staticmethod
+    def spread_seeds(tile_index: int, seeding_plant: Plant, given_map: Map):
+        pass
