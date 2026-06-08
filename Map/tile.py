@@ -31,7 +31,7 @@ class Tile:
         Appends the WorldObject to objects and inserts the name to object names.
         """
         if not isinstance(given_object, WorldObject):
-            raise Exception(f"The passed object is not a WorldObject class, '{type(given_object)}'")
+            raise TypeError(f"The passed object is not a WorldObject class, '{type(given_object)}'")
         self.objects.append(given_object)
         self.add_object_name(given_object.name)
 
@@ -40,7 +40,7 @@ class Tile:
         Checks if the given name is in object_names and if not appends it. 
         """
         if not isinstance(given_name, str):
-            raise Exception(f"The passed object is not a String class, '{type(given_name)}'")
+            raise TypeError(f"The passed object is not a String class, '{type(given_name)}'")
         if not given_name in self.object_names:
             self.object_names.append(given_name)
     
@@ -49,7 +49,7 @@ class Tile:
         Removes the given object from objects
         """
         if not isinstance(given_object, WorldObject):
-            raise Exception(f"The passed object is not a WorldObject class, '{type(given_object)}'")
+            raise TypeError(f"The passed object is not a WorldObject class, '{type(given_object)}'")
         self.objects.remove(given_object)
         if not self.object_name_exsist(given_object.name):
             self.object_names.remove(given_object.name)
