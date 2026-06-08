@@ -38,6 +38,10 @@ class Map:
         """
         Removes the passed WorldObject to the selected Tile with the tile's remove_object function.
         """
+        if not isinstance(given_object, WorldObject):
+            raise Exception(f"The passed object is not a WorldObject class or a subclass of WorldObject, '{type(given_object)}'")
+        if not isinstance(index, int):
+            raise Exception(f"The passed index is not an int class, '{type(index)}'")
         self.tiles[index].remove_object(given_object)
 
     def show(self):
