@@ -39,6 +39,8 @@ class Tile:
         """
         Checks if the given name is in object_names and if not appends it. 
         """
+        if not isinstance(given_name, str):
+            raise Exception(f"The passed object is not a String class, '{type(given_name)}'")
         if not given_name in self.object_names:
             self.object_names.append(given_name)
     
