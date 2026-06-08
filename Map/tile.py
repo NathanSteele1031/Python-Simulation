@@ -30,6 +30,8 @@ class Tile:
         """
         Appends the WorldObject to objects and inserts the name to object names.
         """
+        if not isinstance(given_object, WorldObject):
+            raise Exception(f"The passed object is not a WorldObject class, '{type(given_object)}'")
         self.objects.append(given_object)
         self.add_object_name(given_object.name)
 
