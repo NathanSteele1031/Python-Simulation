@@ -48,6 +48,8 @@ class Tile:
         """
         Removes the given object from objects
         """
+        if not isinstance(given_object, WorldObject):
+            raise Exception(f"The passed object is not a WorldObject class, '{type(given_object)}'")
         self.objects.remove(given_object)
         if not self.object_name_exsist(given_object.name):
             self.object_names.remove(given_object.name)
