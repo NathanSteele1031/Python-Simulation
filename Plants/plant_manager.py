@@ -23,6 +23,8 @@ class PlantManager:
         Takes a tile and returns all the plants the tile has. 
         """
         tile_plants = []
+        if not isinstance(given_tile, Tile):
+            raise TypeError(f"The passed given_tile is not a Tile class, '{type(given_tile)}'")
         for tile_object in given_tile.objects:
             if isinstance(tile_object, Plant):
                 tile_plants.append(tile_object)
