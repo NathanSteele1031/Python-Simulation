@@ -1,4 +1,5 @@
 from Map.world_object import WorldObject
+from Plants.plant import Plant
 
 TILE_MEANING = {
         "priority": ["Water", "Tree", "Grass"],
@@ -71,3 +72,12 @@ class Tile:
             if object_name in self.object_names:
                 return TILE_MEANING["tiletypes"][object_name]
         return TILE_MEANING["tiletypes"]["Empty"]
+    
+    def has_plants(self):
+        """
+        This is to check if there is a Plant object in the list of objects.
+        """
+        for selected_object in self.objects:
+            if isinstance(selected_object, Plant):
+                return True
+        return False
