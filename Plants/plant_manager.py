@@ -1,6 +1,7 @@
 from Plants.plant import Plant
 from Map.map import Map
 from Map.tile import Tile
+import random
 
 class PlantManager:
     """
@@ -38,3 +39,22 @@ class PlantManager:
             raise TypeError(f"The passed value for seeding_plant is a Plant class, '{type(seeding_plant)}'")
         if not isinstance(given_map, Map):
             raise TypeError(f"The passed value for given_map is not a Map class, '{type(given_map)}'")
+        
+        while True:
+            tile_selection = random.randint(1, 4)
+            if tile_selection == 1:
+                if not given_map.tiles[tile_index - given_map.width].has_plants():
+                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    break
+            if tile_selection == 2:
+                if not given_map.tiles[tile_index + given_map.width].has_plants():
+                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    break
+            if tile_selection == 3:
+                if not given_map.tiles[tile_index - 1].has_plants():
+                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    break
+            if tile_selection == 4:
+                if not given_map.tiles[tile_index + 1].has_plants():
+                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    break
