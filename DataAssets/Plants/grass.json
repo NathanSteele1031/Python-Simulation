@@ -1,0 +1,6 @@
+{
+    "name" : "Grass",
+    "symbol" : [".", "W"],
+    "seed_growth_length" : 5,
+    "eol_age" : 20
+}
