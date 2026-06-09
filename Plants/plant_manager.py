@@ -32,4 +32,9 @@ class PlantManager:
     
     @staticmethod
     def spread_seeds(tile_index: int, seeding_plant: Plant, given_map: Map):
-        pass
+        if not isinstance(tile_index, int):
+            raise TypeError(f"The passed value for Tile_index is not an Int class, '{type(tile_index)}'")
+        if not isinstance(seeding_plant, Plant):
+            raise TypeError(f"The passed value for seeding_plant is a Plant class, '{type(seeding_plant)}'")
+        if not isinstance(given_map, Map):
+            raise TypeError(f"The passed value for given_map is not a Map class, '{type(given_map)}'")
