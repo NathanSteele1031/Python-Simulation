@@ -58,3 +58,11 @@ class Plant(WorldObject):
         Checks if the plant is at it's end of life.
         """
         return self.age >= self.eol_age
+    
+    def show(self):
+        """
+        Returns the symbol of the plant based on if it's a seed. 
+        """
+        if self.seed:
+            return self.seed_symbol
+        return self.adult_symbol
