@@ -1,4 +1,5 @@
 from Map.world_object import WorldObject
+import json
 
 class Plant(WorldObject):
     """
@@ -17,6 +18,10 @@ class Plant(WorldObject):
         super().__init__(name)
         self.age = 0
         self.seed = seed
+        self.seed_symbol = ""
+        self.adult_symbol = ""
+        self.seed_growth_length = 0
+        self.eol_age = 0 #eol is end of life
     
     def age_up(self):
         """
@@ -33,3 +38,13 @@ class Plant(WorldObject):
         
     def grown_seedling(self):
         return self.age == 10
+
+    def load_asset(self, data_asset_file: str):
+        with open(f"DataAssets/{data_asset_file}", 'r') as file:
+            data_asset = json.load(file)
+            
+        self.name = data_asset["name"]
+        self.seed_symbol = data_asset["symbol"][0]
+        self.adult_symbol = data_asset["symbol"][1]
+        self.seed_growth_length = data_asset["seed_growth_length"]
+        self.eol_age = data_asset["eol_age"]
