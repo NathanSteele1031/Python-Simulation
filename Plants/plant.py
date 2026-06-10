@@ -40,9 +40,13 @@ class Plant(WorldObject):
         return self.age == 10
 
     def load_asset(self, data_asset_file: str):
+        """
+        This is to load data asset file from the game folder. \n
+        Files will be loaded at DataAssets/"your file path here"
+        """
         with open(f"DataAssets/{data_asset_file}", 'r') as file:
             data_asset = json.load(file)
-            
+
         self.name = data_asset["name"]
         self.seed_symbol = data_asset["symbol"][0]
         self.adult_symbol = data_asset["symbol"][1]
