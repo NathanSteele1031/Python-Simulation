@@ -52,3 +52,9 @@ class Plant(WorldObject):
         self.adult_symbol = data_asset["symbol"][1]
         self.seed_growth_length = data_asset["seed_growth_length"]
         self.eol_age = data_asset["eol_age"]
+
+    def at_eol(self):
+        """
+        Checks if the plant is at it's end of life.
+        """
+        return self.age >= self.eol_age
