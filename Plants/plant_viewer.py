@@ -21,3 +21,19 @@ class PlantViewer:
                 else:
                     print(given_map.tiles[print_index].show(), end=" ")
             print()
+    
+    def move_up(self, map_width: int):
+        if self.selected_tile - map_width >= 0:
+            self.selected_tile -= map_width
+    
+    def move_down(self, map_width: int):
+        if self.selected_tile + map_width <= map_width ** 2 - 1:
+            self.selected_tile += map_width
+
+    def move_left(self, map_width: int):
+        if (self.selected_tile - 1) % map_width >= 0 and self.selected_tile % map_width != 0:
+            self.selected_tile -= 1
+        
+    def move_right(self, map_width: int):
+        if (self.selected_tile + 1) % map_width != 0:
+            self.selected_tile += 1
