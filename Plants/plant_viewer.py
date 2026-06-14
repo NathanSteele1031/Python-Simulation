@@ -1,4 +1,5 @@
 from Map.map import Map
+from Plants.plant import Plant
 
 class PlantViewer:
     def __init__(self):
@@ -21,6 +22,14 @@ class PlantViewer:
                 else:
                     print(given_map.tiles[print_index].show(), end=" ")
             print()
+        self.show_plant_details(given_map)
+
+    def show_plant_details(self, given_map: Map):
+        selected_tile = given_map.tiles[self.selected_tile]
+        for selected_plant in selected_tile.objects:
+            print(f"Name: {selected_plant.name}")
+            print(f"Age: {selected_plant.age}")
+            print(f"Seedling: {selected_plant.seed}")
     
     def move_up(self, map_width: int):
         if self.selected_tile - map_width >= 0:
