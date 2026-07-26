@@ -25,4 +25,11 @@ class Person:
 
   def AI_actions(self):
     # Perform actions based on needs. (work on after functional person class and implamented to main game.)
-    pass
+    if self.hunger < 30:
+      pass # Find food and pick it up to eat.
+
+    elif self.health < 30:
+      pass # Run away from danger
+
+    else:
+      pass # Wander
