@@ -1,28 +1,22 @@
 # Bug Report — 2026-07-26
 
-Findings from a review of the tracked source (`Map/`, `Plants/`, `DataAssets/`, `main.py`). No fixes have been applied yet.
+Findings from a review of the tracked source (`Map/`, `Plants/`, `DataAssets/`, `main.py`).
+
+**Update 2026-07-26:** Bugs #1 and #3 have been fixed by the user. Left in this report (marked below) for record-keeping; bugs #2, #4, #5 and the minor items are still open.
 
 ---
 
-## 1. `spread_seeds` always adds the new plant to the wrong tile
-**File:** [Plants/plant_manager.py:44-60](../Plants/plant_manager.py)
+## 1. ~~`spread_seeds` always adds the new plant to the wrong tile~~ — FIXED
+**File:** [Plants/plant_manager.py:44-55](../Plants/plant_manager.py)
 
-`tile_selection` is randomized between 1-4 to pick a neighbor (up/down/left/right), and each branch correctly *checks* the matching neighbor tile (`tile_index - width`, `+ width`, `- 1`, `+ 1`). But all four branches call `.add_object(...)` on `tiles[tile_index - given_map.width]` — the case-1 (up) tile — instead of the tile that was actually checked.
+`tile_selection` is randomized between 1-4 to pick a neighbor (up/down/left/right), and each branch correctly *checks* the matching neighbor tile (`tile_index - width`, `+ width`, `- 1`, `+ 1`). Previously, all four branches called `.add_object(...)` on `tiles[tile_index - given_map.width]` — the case-1 (up) tile — instead of the tile that was actually checked, so seeds only ever spread upward regardless of which direction was rolled.
 
-**Effect:** seeds only ever spread upward, regardless of which direction was rolled, and can be added to a tile that was never validated as empty.
-
-```python
-if tile_selection == 2:
-    if not given_map.tiles[tile_index + given_map.width].has_plants():
-        given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))  # should be `+ given_map.width`
-        break
-```
-Same issue in the `tile_selection == 3` and `== 4` branches.
+**Status:** each branch now adds to the same tile it checked (e.g. the `tile_selection == 2` branch checks and adds to `tile_index + given_map.width`). Confirmed fixed.
 
 ---
 
 ## 2. `spread_seeds` has no map-edge bounds checking
-**File:** [Plants/plant_manager.py:43-60](../Plants/plant_manager.py)
+**File:** [Plants/plant_manager.py:43-55](../Plants/plant_manager.py)
 
 The map is a square grid flattened into a 1D list (`tiles[x + y*width]`). Neighbor math (`tile_index ± width`, `tile_index ± 1`) doesn't check for grid edges:
 - `tile_index - width` can go negative for tiles in the top row. Python silently wraps negative indices to the end of the list instead of raising, so this can plant a "neighbor" on the opposite side of the map.
@@ -32,12 +26,12 @@ The map is a square grid flattened into a 1D list (`tiles[x + y*width]`). Neighb
 
 ---
 
-## 3. `spread_seeds` can infinite-loop
-**File:** [Plants/plant_manager.py:43](../Plants/plant_manager.py)
+## 3. ~~`spread_seeds` can infinite-loop~~ — FIXED
+**File:** [Plants/plant_manager.py](../Plants/plant_manager.py)
 
-The `while True:` loop only `break`s when a randomly chosen neighbor is empty. If all 4 neighbors already have plants, the loop never exits.
+Previously, a `while True:` loop only `break`d when a randomly chosen neighbor was empty. If all 4 neighbors already had plants, the loop never exited.
 
-**Effect:** hang / unresponsive process once a plant is surrounded on all sides.
+**Status:** the `while True` loop has been removed — `spread_seeds` now makes a single random attempt per call and simply does nothing if that neighbor already has a plant, instead of looping. Confirmed fixed.
 
 ---
 
@@ -73,4 +67,4 @@ Not called anywhere in the codebase. Its relationship to `grown()` (age 5) and `
 - **[Map/map.py:20](../Map/map.py)** — `__set_tiles__` uses dunder naming (`__x__`), which is conventionally reserved for Python magic methods. A private helper should use a single leading underscore (`_set_tiles`).
 - **[Map/tile.py:58](../Map/tile.py)** — `object_name_exsist` is misspelled (should be `exists`).
 - **[Plants/plant.py:47](../Plants/plant.py)** — `load_asset` opens `f"DataAssets/{data_asset_file}"` relative to the current working directory, so it will fail if the script isn't run from the repo root.
-- No automated tests exist yet. `spread_seeds` in particular (randomized branching + edge math) is the kind of logic that benefits most from tests, given bugs #1-3 above.
+- No automated tests exist yet. `spread_seeds` in particular (randomized branching + edge math) is the kind of logic that benefits most from tests, given bugs #1-3 above (with #1 and #3 now fixed, a regression test would help keep it that way).
