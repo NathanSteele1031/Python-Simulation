@@ -48,13 +48,13 @@ class PlantManager:
                     break
             if tile_selection == 2:
                 if not given_map.tiles[tile_index + given_map.width].has_plants():
-                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    given_map.tiles[tile_index + given_map.width].add_object(Plant(seeding_plant.name, True))
                     break
             if tile_selection == 3:
                 if not given_map.tiles[tile_index - 1].has_plants():
-                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    given_map.tiles[tile_index - 1].add_object(Plant(seeding_plant.name, True))
                     break
             if tile_selection == 4:
                 if not given_map.tiles[tile_index + 1].has_plants():
-                    given_map.tiles[tile_index - given_map.width].add_object(Plant(seeding_plant.name, True))
+                    given_map.tiles[tile_index + 1].add_object(Plant(seeding_plant.name, True))
                     break
