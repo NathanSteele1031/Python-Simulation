@@ -11,7 +11,7 @@ class Plant(WorldObject):
     age (int) : The age of the plant.
     seed (bool) : This is a flag to see if it's a seedling.
     """
-    def __init__(self, name: str, seed: bool):
+    def __init__(self, name: str, seed: bool, load_asset=False):
         """
         Sets the name and seed value passed and sets the age to 0.
         """
@@ -22,6 +22,8 @@ class Plant(WorldObject):
         self.adult_symbol = ""
         self.seed_growth_length = 0
         self.eol_age = 0 #eol is end of life
+        if load_asset:
+            self.load_asset(name)
     
     def age_up(self):
         """
@@ -44,7 +46,7 @@ class Plant(WorldObject):
         This is to load data asset file from the game folder. \n
         Files will be loaded at DataAssets/"your file path here"
         """
-        with open(f"DataAssets/{data_asset_file}", 'r') as file:
+        with open(f"DataAssets/Plants/{data_asset_file.lower()}.json", 'r') as file:
             data_asset = json.load(file)
 
         self.name = data_asset["name"]
