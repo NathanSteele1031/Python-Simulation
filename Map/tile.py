@@ -70,7 +70,9 @@ class Tile:
         """
         for object_name in TILE_MEANING["priority"]:
             if object_name in self.object_names:
-                return TILE_MEANING["tiletypes"][object_name]
+                for given_object in self.objects:
+                    if given_object.name == object_name:
+                        return given_object.show()
         return TILE_MEANING["tiletypes"]["Empty"]
     
     def has_plants(self):
